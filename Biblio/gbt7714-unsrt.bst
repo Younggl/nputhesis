@@ -8,7 +8,7 @@
 %% -------------------------------------------------------------------
 %% GB/T 7714-2015 BibTeX Style
 %% https://github.com/CTeX-org/gbt7714-bibtex-style
-%% Version: 2019/01/02 v1.1
+%% Version: 2019/11/20 v1.1.2
 %% -------------------------------------------------------------------
 %% Copyright (C) 2016-2019 by Zeping Lee <zepinglee AT gmail.com>
 %% -------------------------------------------------------------------
@@ -20,7 +20,6 @@
 %% and version 1.3c or later is part of all distributions of LaTeX
 %% version 2005/12/01 or later.
 %% -------------------------------------------------------------------
-
 INTEGERS {
   uppercase.name
   max.num.authors
@@ -28,6 +27,7 @@ INTEGERS {
   sentence.case.title
   link.title
   show.mark
+  show.medium.type
   slash.for.extraction
   in.booktitle
   italic.jounal
@@ -42,15 +42,15 @@ FUNCTION {load.config}
 {
   #1 'uppercase.name :=
   #3 'max.num.authors :=
-  #0 'period.between.author.year :=
   #1 'sentence.case.title :=
   #0 'link.title :=
   #1 'show.mark :=
+  #1 'show.medium.type :=
   #1 'slash.for.extraction :=
   #0 'in.booktitle :=
   #0 'italic.jounal :=
   #0 'bold.journal.volume :=
-  #0 'show.missing.address.publisher :=
+  #1 'show.missing.address.publisher :=
   #1 'show.url :=
   #1 'show.doi :=
   #0 'show.note :=
@@ -137,13 +137,7 @@ FUNCTION {bbl.et.al}
 }
 
 FUNCTION {citation.et.al}
-{ entry.lang lang.zh =
-    { "等" }
-    { "{\bibetal}" }
-  if$
-}
-
-FUNCTION {citation.and} { "{\biband}" }
+{ bbl.et.al }
 
 FUNCTION {bbl.colon} { ": " }
 
@@ -622,13 +616,22 @@ FUNCTION {make.full.names}
 
 FUNCTION {output.bibitem}
 { newline$
-  "\bibitem[{" write$
-  label write$
-  ")" make.full.names duplicate$ short.list =
+  "\bibitem[" write$
+  label ")" *
+  make.full.names duplicate$ short.list =
      { pop$ }
      { * }
-   if$
-   "}]{" * write$
+  if$
+  's :=
+  s text.length$ 'charptr :=
+    { charptr #0 > s charptr #1 substring$ "[" = not and }
+    { charptr #1 - 'charptr := }
+  while$
+  charptr #0 >
+    { "{" s * "}" * }
+    { s }
+  if$
+  "]{" * write$
   cite$ write$
   "}" write$
   newline$
@@ -753,9 +756,9 @@ FUNCTION {format.number}
 
 FUNCTION {format.volume.number}
 { volume empty$ not
-   { format.volume }
-   { format.number }
- if$
+    { format.volume }
+    { format.number }
+  if$
 }
 
 FUNCTION {format.title.vol.num}
@@ -851,7 +854,7 @@ FUNCTION {format.series.vol.num.booktitle}
 
 FUNCTION {format.journal}
 { journal
-  italic.jounal
+  italic.jounal entry.lang lang.en = and
     'italicize
     'skip$
   if$
@@ -870,14 +873,20 @@ FUNCTION {set.entry.mark}
 
 FUNCTION {format.mark}
 { show.mark
-    { medium empty$ not
-        { entry.mark "/" * medium * 'entry.mark := }
-        { entry.is.electronic
-            { entry.mark "/OL" * 'entry.mark := }
-            'skip$
+    { entry.mark
+      show.medium.type
+        { medium empty$ not
+            { "/" * medium * }
+            { entry.is.electronic
+                { "/OL" * }
+                'skip$
+              if$
+            }
           if$
         }
+        'skip$
       if$
+      'entry.mark :=
       "\allowbreak[" entry.mark * "]" *
     }
     { "" }
@@ -1627,30 +1636,17 @@ FUNCTION {chop.word}
   if$
 }
 
-FUNCTION {format.lab.name}
-{ "{vv~}{ll}{, jj}{, ff}" format.name$
-  duplicate$ get.str.lang 'name.lang :=
-  name.lang lang.zh = name.lang lang.ja = or
-    { #1 "{ll}{ff}" format.name$ }
-    { #1 "{vv~}{ll}" format.name$ }
-  if$
-}
-
 FUNCTION {format.lab.names}
 { 's :=
-  s #1 format.lab.name
-  s num.names$ #2 = name.lang lang.en = name.lang lang.ru = or and
-    { s #2 format.lab.name 't :=
-      t "others" =
-        { bbl.space * citation.et.al * }
-        { " " * citation.and * " " * t * }
-      if$
-    }
-    { s num.names$ #1 >
-        { bbl.space * citation.et.al * }
-        'skip$
-      if$
-    }
+  s #1 "{vv~}{ll}{, jj}{, ff}" format.name$ 't :=
+  t get.str.lang 'name.lang :=
+  name.lang lang.en =
+    { t #1 "{vv~}{ll}" format.name$}
+    { t #1 "{ll}{ff}" format.name$}
+  if$
+  s num.names$ #1 >
+    { bbl.space * citation.et.al * }
+    'skip$
   if$
 }
 

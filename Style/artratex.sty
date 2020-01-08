@@ -3,7 +3,8 @@
 %-                           Document Style                                -%
 %-                                                                         -%
 %---------------------------------------------------------------------------%
-%- Copyright (C) Huangrui Mo <huangrui.mo@gmail.com> 
+%- Copyright (C) Huangrui Mo <huangrui.mo@gmail.com>
+%- Modified by a npuer <740943170@qq.com>.
 %- This is free software: you can redistribute it and/or modify it
 %- under the terms of the GNU General Public License as published by
 %- the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +13,7 @@
 %->> Identification
 %---------------------------------------------------------------------------%
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesPackage{artratex}[2014/10/01 v1.0 LaTeX macros package]%
+\ProvidesPackage{Style/artratex}[2014/10/01 v1.0 LaTeX macros package]%
 %---------------------------------------------------------------------------%
 %->> Declare options
 %---------------------------------------------------------------------------%
@@ -107,13 +108,6 @@
 \newif\ifartx@lscape \artx@lscapefalse
 \DeclareOption{lscape}{%
     \artx@lscapetrue
-}
-%-
-%-> Header and footer
-%-
-\newif\ifartx@xhf \artx@xhftrue
-\DeclareOption{xhf}{%
-    \artx@xhffalse
 }
 %-
 %-> Color support
@@ -246,6 +240,8 @@
 %-> Math packages
 %-
 \RequirePackage{amsmath,amsthm,amssymb}% math structures, theorems, and extended symbols
+\RequirePackage{upgreek}% upper greek letters
+\RequirePackage{xfrac}
 \theoremstyle{plain}% for theorems, lemmas, propositions, etc
 \providecommand{\theoremname}{Theorem}%
 \newtheorem{theorem}{\theoremname}[\artxmaincnt]
@@ -320,27 +316,21 @@
     %\RequirePackage[cal=cm]{mathalfa}% map styles for calligraphic \mathcal and script \mathscr alphabet
     \IfFontExistsTF{XITS-Regular.otf}{%
     \RequirePackage{unicode-math}% unicode font configuration <XITS|STIX2>
-    \def\boldsymbol#1{\symbfit{#1}}% treat obsoleteness
-    \providecommand{\Vector}[1]{\symbfit{#1}}% general vectors in bold italic
-    \providecommand{\unitVector}[1]{\symbfup{#1}}% unit vectors in bold roman
-    \providecommand{\Matrix}[1]{\symbfup{#1}}% matrix in bold roman
-    \providecommand{\unitMatrix}[1]{\symbfup{#1}}% identity matrix in bold roman
-    \providecommand{\Tensor}[1]{\symbfsfup{#1}}% tensor in sans-serif bold italic
-    \providecommand{\unitTensor}[1]{\symbfsfup{#1}}% identity tensor in sans-serif bold
+    \def\boldsymbol#1{\symbf{#1}}% treat obsoleteness
     \setmainfont[NFSSFamily=entextrm]{XITS}[
       Extension      = .otf,
       UprightFont    = *-Regular,
       BoldFont       = *-Bold,
-      ItalicFont     = *-Italic,
-      BoldItalicFont = *-BoldItalic,
+      ItalicFont	 = *-Italic,
+      BoldItalicFont = XITS-BoldItalic,
       Ligatures=TeX,
     ]
     \setsansfont[NFSSFamily=entextsf]{XITS}[
       Extension      = .otf,
       UprightFont    = *-Regular,
       BoldFont       = *-Bold,
-      ItalicFont     = *-Italic,
-      BoldItalicFont = *-BoldItalic,
+	  ItalicFont	 = *-Italic,
+      BoldItalicFont = XITS-BoldItalic,
       Ligatures=TeX,
     ]
     \setmonofont[NFSSFamily=entexttt]{XITS}[
@@ -348,44 +338,45 @@
       UprightFont    = *-Regular,
       BoldFont       = *-Bold,
       ItalicFont     = *-Italic,
-      BoldItalicFont = *-BoldItalic,
+      BoldItalicFont = XITS-BoldItalic,
       Ligatures=TeX,
     ]
     \setmathfont{XITSMath-Regular}[
       Extension    = .otf,
       BoldFont     = XITSMath-Bold,
+      StylisticSet = 8,
       Ligatures=TeX,
-      StylisticSet = 1,
     ]
     \setmathfont{XITSMath-Regular}[
       Extension    = .otf,
       range={cal,bfcal},
-      Ligatures=TeX,
       StylisticSet = 1,
+      Ligatures=TeX,
     ]
     \setmathfont{XITSMath-Regular}[
       Extension    = .otf,
       range={scr,bfscr},
-      Ligatures=TeX,
       StylisticSet = 2,
+      Ligatures=TeX,
     ]
     \setmathrm{XITSMath-Regular}[
       Extension    = .otf,
+%      ItalicFont   = XITS-Italic,
       BoldFont     = XITSMath-Bold,
+      StylisticSet = 8,
       Ligatures=TeX,
-      StylisticSet = 1,
     ]
     \setmathsf{XITSMath-Regular}[
       Extension    = .otf,
       BoldFont     = XITSMath-Bold,
-      Ligatures=TeX,
       StylisticSet = 1,
+      Ligatures=TeX,
     ]
     \setmathtt{XITSMath-Regular}[
       Extension    = .otf,
       BoldFont     = XITSMath-Bold,
-      Ligatures=TeX,
       StylisticSet = 1,
+      Ligatures=TeX,
     ]
     }{%
     \RequirePackage{newtxtext}% main font
@@ -395,11 +386,11 @@
     }
     %- Text font: Chinese
     \ifartx@windows%
-        \setCJKmainfont{SimSun}[AutoFakeBold=2.5,ItalicFont=KaiTi]%
+        \setCJKmainfont{SimSun}[AutoFakeBold=2.5,ItalicFont=KaiTi,BoldItalicFont=iekie cukaiti]%
         \setCJKsansfont{SimHei}[AutoFakeBold=2.5]%
         \setCJKmonofont{FangSong}%
     \else\ifartx@mac%
-        \setCJKmainfont{Songti SC}[%
+        \setCJKmainfont{Songti SC}[
             UprightFont    = * Light,
             BoldFont       = * Bold,
             ItalicFont     = Kaiti SC,
@@ -463,15 +454,18 @@
     \ifartx@alpha% enable alpha citation style
         \RequirePackage[style=alphabetic]{biblatex}%
     \fi
-    \addbibresource{ref.bib}%
+    \addbibresource{../Biblio/ref.bib}%
 \fi
 %-
-%-> Figure environment support
-%-
+%-> Figure environment support                            
+%-                                                        
 \RequirePackage{graphicx}% packages for including graphics
-\RequirePackage[format=plain,hangindent=2.0em,font={small,bf},skip=8pt,labelsep=space]{caption}% options: [margin=10pt,labelfont=bf]
+\RequirePackage[format=plain,hangindent=2.0em,font={small,sf},skip=8pt]{caption}% options: [margin=10pt,labelfont=bf]
 \RequirePackage{subcaption}% package for subfigures
 \RequirePackage[list=off]{bicaption}% package for binary captions
+\DeclareCaptionLabelSeparator{enspace}{\enspace}%
+\captionsetup{labelsep=enspace}%
+\captionsetup[figure]{font={small,rm}}%
 \captionsetup[bi-first]{bi-first}%
 \captionsetup[bi-second]{bi-second}%
 \DeclareCaptionOption{bi-first}[]{}% 1st language
@@ -479,6 +473,14 @@
     \def\tablename{Table}%
     \def\figurename{Figure}%
 }
+\renewcommand{\thetable}{\arabic{chapter}\raisebox{1pt}{--}\arabic{table}}   
+\renewcommand{\thefigure}{\arabic{chapter}\raisebox{1pt}{--}\arabic{figure}}
+
+%\providecommand{\bicpation}{\bicaption}
+\setlength{\floatsep}{12pt}
+\setlength{\textfloatsep}{10pt}
+\setlength{\intextsep}{10pt}
+
 \RequirePackage[section]{placeins}% prevent floats from being moved over section
 %-
 %-> Page layout and spacing
@@ -492,9 +494,6 @@
     %- usage: \begin{landscape} [\thispagestyle{lscape}] text... \end{landscape}
     \RequirePackage{pdflscape}% landscape environment
     \RequirePackage[absolute]{textpos}% rotated page number
-\fi
-\ifartx@xhf% header and footer style
-    \RequirePackage{fancyhdr}% fancy headers and footers
 \fi
 %\RequirePackage{microtype}% improves general appearance of the text
 %-
@@ -521,6 +520,9 @@
 %-
 \ifartx@table%
     \RequirePackage{ctable}% imports the array, tabularx and booktabs packages
+    \setlength\heavyrulewidth{1pt}%
+    \setlength\lightrulewidth{0.5pt}%
+    \RequirePackage{multirow,makecell}% solve the problem: linebreak
 \fi
 %-
 %-> List structures
@@ -543,7 +545,7 @@
     \RequirePackage{hyperref}% load at last
     \hypersetup{% set hyperlinks
         pdfencoding=auto,% allows non-Latin based languages in bookmarks
-        psdextra=true,% extra support for math symbols in bookmarks
+        %psdextra=true,% extra support for math symbols in bookmarks
         %bookmarks=true,% show bookmarks bar
         bookmarksnumbered=true,% put section numbers in bookmarks
         pdftitle={\@title},% title
@@ -608,89 +610,6 @@
     \setlength\bibitemsep{0.5\baselineskip}% set distance between entries
 \fi
 \renewcommand*{\bibfont}{\small}% set font size for bibliography
-%-
-%-> Page header and footer Style
-%-
-%- Page styles in Latex refers to headers and footers of a document.
-%- These headers/footers typically contain document titles, chapter
-%- or section numbers/names, and page numbers.
-%- Configure fancy style
-\ifartx@xhf% user defined header and footer style
-    \pagestyle{fancy}%
-    %- customizing headers and footers in LaTeX is a two-stage process
-    %- 1) \chapter|section call \chapter|sectionmark that call \markboth|right to define \left|rightmark
-    %-    but \chapter*|section* do not call \chapter|sectionmark, then manually call \markboth|right is needed to update \left|rightmark
-    %-    \markboth{here set \leftmark for chapter heading}{here set \rightmark for section heading}
-    %- 2) in header/footer definition, \left|rightmark represent the current chapter and section heading
-    %- original chaptermark and sectionmark for headings
-    %\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\chaptername\ \thechapter.\ #1}}{}}%
-    %\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}%
-    %- redefine to set mark to actual name
-    %\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}%
-    %\renewcommand{\sectionmark}[1]{\markright{\MakeUppercase{#1}}{}}%
-    %- Deactivate uppercase effect
-    \renewcommand{\MakeUppercase}[1]{#1}%
-    %- Define different kinds of header and footer for different parts
-    \fancypagestyle{frontmatterstyle}{% style for frontmatter
-        \fancyhf{}% clear fields
-        \fancyhead[C]{\footnotesize \ifnumodd{\value{page}}{\leftmark}{\@title}}% structure elements
-        \fancyfoot[C]{\footnotesize \thepage}% page number
-        \renewcommand{\headrulewidth}{0.8pt}% header rule
-        \renewcommand{\footrulewidth}{0pt}% footer rule
-    }
-    \fancypagestyle{mainmatterstyle}{% style for mainmatter
-        \fancyhf{}% clear fields
-        \fancyhead[C]{\footnotesize \ifnumodd{\value{page}}{\leftmark}{\@title}}% structure elements
-        \fancyfoot[C]{\footnotesize \ifnumodd{\value{page}}{\hspace*{\fill}\thepage}{\thepage\hspace*{\fill}}}% page number
-        \renewcommand{\headrulewidth}{0.8pt}% header rule
-        \renewcommand{\footrulewidth}{0pt}% footer rule
-    }
-    \fancypagestyle{backmatterstyle}{% header and footer style for backmatter
-        \fancyhf{}% clear fields
-        \fancyhead[C]{\footnotesize \ifnumodd{\value{page}}{\leftmark}{\@title}}% structure elements
-        \fancyfoot[C]{\footnotesize \ifnumodd{\value{page}}{\hspace*{\fill}\thepage}{\thepage\hspace*{\fill}}}% page number
-        \renewcommand{\headrulewidth}{0.8pt}% header rule
-        \renewcommand{\footrulewidth}{0pt}% footer rule
-    }
-    %- Redefine \frontmatter to include the change
-    \providecommand{\frontmatter}{}% compatibility for non-book classes
-    \let\artxfrontmatter\frontmatter%
-    \renewcommand{\frontmatter}{%
-        \artxfrontmatter%
-        \pagestyle{frontmatterstyle}%
-    }
-    %- Redefine \mainmatter to include the change
-    \providecommand{\mainmatter}{}% compatibility for non-book classes
-    \let\artxmainmatter\mainmatter%
-    \renewcommand{\mainmatter}{%
-        \artxmainmatter%
-        \pagestyle{mainmatterstyle}%
-    }
-    %- Redefine \backmatter to include the change
-    \providecommand{\backmatter}{}% compatibility for non-book classes
-    \let\artxbackmatter\backmatter%
-    \renewcommand{\backmatter}{%
-        \artxbackmatter%
-        \pagestyle{backmatterstyle}%
-    }
-    %- Some Latex commands, like \chapter, use the \thispagestyle command
-    %- to automatically switch to the plain page style, thus ignoring the
-    %- page style currently in effect. To customize such pages you must
-    %- redefine the plain pagestyle. If you want the plain style inherits
-    %- the current style, comment all the lines in plain style definition.
-    \fancypagestyle{plain}{%
-        %\fancyhf{}% clear fields
-        %\renewcommand{\headrulewidth}{0pt}% header rule
-        %\renewcommand{\footrulewidth}{0pt}% footer rule
-    }
-    \fancypagestyle{noheaderstyle}{% header and footer style for no header
-        \fancyhf{}% clear fields
-        %\fancyhead[C]{\footnotesize \ifnumodd{\value{page}}{\leftmark}{\@title}}% structure elements
-        \fancyfoot[C]{\footnotesize \ifnumodd{\value{page}}{\hspace*{\fill}\thepage}{\thepage\hspace*{\fill}}}% page number
-        \renewcommand{\headrulewidth}{0pt}% header rule
-        \renewcommand{\footrulewidth}{0pt}% footer rule
-    }
-\fi
 %-
 %-> Configure landscape environment
 %-

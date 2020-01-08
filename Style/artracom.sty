@@ -4,6 +4,7 @@
 %-                                                                         -%
 %---------------------------------------------------------------------------%
 %- Copyright (C) Huangrui Mo <huangrui.mo@gmail.com> 
+%- Modified by a npuer <740943170@qq.com>.
 %- This is free software: you can redistribute it and/or modify it
 %- under the terms of the GNU General Public License as published by
 %- the Free Software Foundation, either version 3 of the License, or
@@ -77,25 +78,34 @@
 %- and easy adaption, it it always best to create a corresponding command for 
 %- variables in each math category.  
 %\providecommand{\Scalar}[1]{#1}% scalar is the normal math typeset, italic
-\providecommand{\Vector}[1]{\boldsymbol{#1}}% general vectors in bold italic
+\providecommand{\Vector}[1]{\{{#1}\}}% general vectors in bold italic
+\renewcommand{\vec}[1]{\Vector{#1}}% redefine predefined vector if needed
+\providecommand{\bbold}[1]{\boldsymbol{\mathbf{#1}}}% unit vectors in bold roman
 \providecommand{\unitVector}[1]{\boldsymbol{\mathbf{#1}}}% unit vectors in bold roman
-\providecommand{\Matrix}[1]{\boldsymbol{\mathbf{#1}}}% matrix in bold roman
+\providecommand{\Tensor}[1]{\boldsymbol{\mathbfit{#1}}}% tensor in sans-serif bold italic
+%\providecommand{\unitTensor}[1]{\boldsymbol{\mathbf{#1}}}% identity tensor in sans-serif bold
+\providecommand{\Matrix}[1]{[{#1}]}% matrix in bold roman
 \providecommand{\unitMatrix}[1]{\boldsymbol{\mathbf{#1}}}% identity matrix in bold roman
-\providecommand{\Tensor}[1]{\boldsymbol{\mathsf{#1}}}% tensor in sans-serif bold italic
-\providecommand{\unitTensor}[1]{\boldsymbol{\mathsf{#1}}}% identity tensor in sans-serif bold
 \providecommand{\Unit}[1]{\,\mathrm{#1}}% units in roman
 \providecommand{\Const}[1]{\mathrm{#1}}% math constants, functions
 \providecommand{\Set}[1]{\mathbb{#1}}% special sets in blackboard bold
 \providecommand{\Div}{\operatorname{div}}% divergence operator
-\providecommand{\Order}{\operatorname{O}}% order operator
+\providecommand{\Order}{\operatorname{O}}% order operator, like O(x3)
 \providecommand{\Trace}{\operatorname{tr}}% trace operator
 \providecommand{\Diag}{\operatorname{diag}}% diagonal
 \providecommand{\Def}{\operatorname{def}}% define
 \providecommand{\Loptr}{\operatorname{\mathcal{L}}}% spatial operator
 \providecommand{\Toptr}{\operatorname{\mathcal{LL}}}% temporal operator
 \providecommand{\Soptr}{\operatorname{\mathcal{S}}}% solution operator
+\providecommand{\vir}{{{\updelta}}}
+%\providecommand{\cdot}{\cdot}%\mspace{-3mu}
 \providecommand{\Des}[1]{\mathrm{#1}}% descriptive superscripts and subscripts in roman type 
-\providecommand{\Rev}[1]{\begingroup\color{blue}{#1}\endgroup}% revision highlight
+\providecommand{\dif}{\mathop{}\!\mathrm{d}}
+\providecommand{\diff}[1]{\mathop{}\!\mathrm{d^#1}}
+\providecommand{\trans}{\mathrm{T}}
+\providecommand{\RomanNumeralCaps}[1]
+    {\MakeUppercase{\romannumeral #1 \relax}}
+
 %-
 %-> Graphical length factor
 %-
