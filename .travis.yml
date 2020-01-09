@@ -19,6 +19,8 @@ jobs:
       install:
         - sudo apt-get -y install texlive-full
       script:
+        - ls
+        - pwd
         - chmod +x artratex.sh
         - ./artratex.sh xa
       cache:
@@ -35,9 +37,9 @@ jobs:
             - language-pack-zh*
             - chinese*
       before_install:
-        - sudo apt-get update
+        - brew  update
       install:
-        - sudo apt-get -y install texlive-full
+        - brew cask install mactex-no-gui
       script:
         - chmod +x artratex.sh
         - ./artratex.sh xa
