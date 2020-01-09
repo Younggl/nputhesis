@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://github.com/e71828/nputhesis/blob/master/Img/textlogoblue.png" width="300px"><br/>
-  <img src=https://img.shields.io/github/languages/code-size/e71828/nputhesis?color=orange"> <img src=https://img.shields.io/github/repo-size/e71828/nputhesis?color=red"><img src=https://img.shields.io/github/last-commit/e71828/nputhesis">
+  <img src=https://img.shields.io/github/languages/code-size/e71828/nputhesis?color=orange"> <img src=https://img.shields.io/github/repo-size/e71828/nputhesis?color=red"><img src=https://img.shields.io/github/license/e71828/nputhesis">
  </p>
  
 ## 源自 `ucasthesis` 国科大学位论文 LaTeX 模板
