@@ -7,7 +7,7 @@ env:
 
 branches:
   only:
-  - master
+  - dev
   
 matrix:
   include:
