@@ -21,9 +21,9 @@ jobs:
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso.md5
         - md5sum -c texlive2019-20190410.iso.md5
-        - sudo mkdir -p /home/download
+        - sudo mkdir /home/download
         - sudo mount -o loop,ro *.iso /home/download
-        - sudo echo "I" > /home/test.txt 
+        - echo 'I' | sudo tee /home/test.txt 
         - cat /home/test.txt | nohup perl /home/download/install-tl -no-gui
         - sudo umount -l /home/download/
         - sudo cp /usr/local/texlive/2019/texmf-var/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
@@ -53,9 +53,9 @@ jobs:
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso.md5
         - md5sum -c texlive2019-20190410.iso.md5
-        - sudo mkdir -p /home/download
+        - sudo mkdir /home/download
         - hdiutil attach -mountroot /home/download
-        - sudo echo "I" > /home/test.txt 
+        - echo 'I' | sudo tee /home/test.txt 
         - cat /home/test.txt | nohup perl /home/download/install-tl -no-gui
         - sudo cp /usr/local/texlive/2019/texmf-var/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
         - sudo nohup fc-cache -fsv
