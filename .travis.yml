@@ -24,10 +24,10 @@ jobs:
         - sudo mkdir /home/download
         - sudo mount -o loop,ro *.iso /home/download
         - echo 'I' | sudo tee /home/test.txt 
-        - cat /home/test.txt | nohup perl /home/download/install-tl -no-gui
+        - cat /home/test.txt | perl /home/download/install-tl -no-gui
         - sudo umount -l /home/download/
         - sudo cp /usr/local/texlive/2019/texmf-var/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
-        - sudo nohup fc-cache -fsv
+        - sudo fc-cache -fsv
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
         - sudo sed -i '86,103d' artratex.sh
@@ -53,12 +53,12 @@ jobs:
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso.md5
         - md5sum -c texlive2019-20190410.iso.md5
-        - sudo mkdir /home/download
-        - hdiutil attach -mountroot /home/download
-        - echo 'I' | sudo tee /home/test.txt 
-        - cat /home/test.txt | nohup perl /home/download/install-tl -no-gui
+        - sudo mkdir ~/download
+        - hdiutil attach -mountroot ~/download
+        - echo 'I' | sudo tee ~/test.txt 
+        - cat ~/test.txt | perl ~/download/install-tl -no-gui
         - sudo cp /usr/local/texlive/2019/texmf-var/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
-        - sudo nohup fc-cache -fsv
+        - sudo fc-cache -fsv
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
         - sudo sed -i '86,103d' artratex.sh
