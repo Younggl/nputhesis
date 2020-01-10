@@ -16,12 +16,22 @@ jobs:
             - chinese*
       before_install:
         - sudo apt-get update
+        - sudo apt install perl wget -y
       install:
-        - sudo apt-get -y install texlive-full
+        - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso
+        - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso.md5
+        - md5sum -c texlive2019-20190410.iso.md5
+        - sudo mkdir -p /home/download
+        - sudo mount -o loop,ro *.iso /home/download
+        - sudo echo "I" > /home/test.txt 
+        - cat /home/test.txt | nohup perl /home/download/install-tl -no-gui
+        - sudo umount -l /home/download/
+        - sudo cp /usr/local/texlive/2019/texmf-var/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
+        - sudo nohup fc-cache -fsv
       script:
-        - ls
-        - pwd
-        - chmod +x artratex.sh
+        - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
+        - sudo sed -i '86,103d' artratex.sh
+        - sudo chmod +x artratex.sh
         - ./artratex.sh xa
       cache:
         directories:
@@ -31,21 +41,31 @@ jobs:
       os: osx
       sudo: required
       addons:
-        apt:
+        brew:
           packages:
             # Chinese
             - language-pack-zh*
             - chinese*
       before_install:
         - brew  update
+        - brew install wget perl
       install:
-        - brew cask install mactex-no-gui
+        - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso
+        - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso.md5
+        - md5sum -c texlive2019-20190410.iso.md5
+        - sudo mkdir -p /home/download
+        - hdiutil attach -mountroot /home/download
+        - sudo echo "I" > /home/test.txt 
+        - cat /home/test.txt | nohup perl /home/download/install-tl -no-gui
+        - sudo cp /usr/local/texlive/2019/texmf-var/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
+        - sudo nohup fc-cache -fsv
       script:
-        - chmod +x artratex.sh
+        - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
+        - sudo sed -i '86,103d' artratex.sh
+        - sudo chmod +x artratex.sh
         - ./artratex.sh xa
       cache:
         directories:
           - /tmp/texlive
           - $HOME/.texlive
-
 

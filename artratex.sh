@@ -57,9 +57,6 @@ fi
 #-
 Tmp="Tmp"
 Tex="Tex"
-if [[ ! -d $Tmp/$Tex ]]; then
-    mkdir -p $Tmp/$Tex
-fi
 #-
 #-> Set LaTeX environmental variables to add subdirs into search path
 #-
