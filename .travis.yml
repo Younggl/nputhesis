@@ -26,13 +26,11 @@ jobs:
         - echo 'I' | sudo tee /home/test.txt 
         - cat /home/test.txt | sudo perl /home/download/install-tl -no-gui
         - sudo umount -l /home/download/
-        - sudo cp /usr/local/texlive/2019/texmf-var/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
-        - sudo fc-cache -fsv
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
         - sudo sed -i '86,103d' artratex.sh
         - sudo chmod +x artratex.sh
-        - ./artratex.sh xa
+        - sudo ./artratex.sh xa
       cache:
         directories:
           - /tmp/texlive
@@ -53,17 +51,14 @@ jobs:
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso.md5
         - md5sum -c texlive2019-20190410.iso.md5
-        - sudo mkdir ~/download
-        - hdiutil attach texlive2019-20190410.iso -mountroot ~/download
+        - sudo hdiutil attach texlive2019-20190410.iso -readonly
         - echo 'I' | sudo tee ~/test.txt 
-        - cat ~/test.txt | sudo perl ~/download/install-tl -no-gui
-        - sudo cp /usr/local/texlive/2019/texmf-var/fonts/conf/texlive-fontconfig.conf /etc/fonts/conf.d/09-texlive.conf
-        - sudo fc-cache -fsv
+        - cat ~/test.txt | sudo perl /Volumes/*2019*/install-tl -no-gui
+        - sudo hdiutil detach /Volumes/*2019*
       script:
-        - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
-        - sudo sed -i '86,103d' artratex.sh
+        - export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH
         - sudo chmod +x artratex.sh
-        - ./artratex.sh xa
+        - sudo ./artratex.sh xa
       cache:
         directories:
           - /tmp/texlive
