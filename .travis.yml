@@ -35,9 +35,9 @@ jobs:
         - sudo umount -l /home/download/
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH &&
-          sudo sed -i '89,106d' artratex.sh 
-          sudo chmod +x artratex.sh 
-          sudo ./artratex.sh xa 
+        - sudo sed -i '89,106d' artratex.sh 
+        - sudo chmod +x artratex.sh 
+        - sudo ./artratex.sh xa 
       cache:
         directories:
           - /tmp/texlive
@@ -64,8 +64,8 @@ jobs:
         - sudo hdiutil detach /Volumes/*2019*
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH 
-          sudo chmod +x artratex.sh 
-          sudo ./artratex.sh xa
+        - sudo chmod +x artratex.sh 
+        - sudo ./artratex.sh xa
       cache:
         directories:
           - /tmp/texlive
