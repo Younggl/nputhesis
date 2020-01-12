@@ -35,11 +35,12 @@ jobs:
         - sudo umount -l /home/download/
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
-        - sudo sed -i '89,106d' artratex.sh 
-        - sudo chmod +x artratex.sh 
         - mkdir Tmp
         - xelatex -output-directory=Tmp Thesis.tex
-        - bibtex -output-directory=Tmp Thesis.tex
+        - sed -i -e "s|\@input{|\@input{Tmp/|g"  ./Tmp/Thesis.aux
+        - bibtex ./Tmp Thesis.aux
+        - xelatex -output-directory=Tmp Thesis.tex
+        - xelatex -output-directory=Tmp Thesis.tex
       cache:
         directories:
           - /tmp/texlive
@@ -59,11 +60,11 @@ jobs:
         - cat ~/test.txt | sudo perl /Volumes/*2019*/install-tl -no-gui
         - sudo hdiutil detach /Volumes/*2019*
         - cd /Library/Fonts/
-        - sudo wget http://intellisenselab.ml/Kaiti.ttc
-        - sudo wget http://intellisenselab.ml/STFANGSO.ttf
-        - sudo wget http://intellisenselab.ml/STHeiti%20Light.ttc
-        - sudo wget http://intellisenselab.ml/STHeiti%20Medium.ttc
-        - sudo wget http://intellisenselab.ml/Songti.ttc
+        - sudo wget https://intellisenselab.ml/Kaiti.ttc
+        - sudo wget https://intellisenselab.ml/STFANGSO.ttf
+        - sudo wget https://intellisenselab.ml/STHeiti%20Light.ttc
+        - sudo wget https://intellisenselab.ml/STHeiti%20Medium.ttc
+        - sudo wget https://intellisenselab.ml/Songti.ttc
         - cd -
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH 
