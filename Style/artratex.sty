@@ -466,13 +466,13 @@
 \DeclareCaptionLabelSeparator{enspace}{\enspace}%
 \captionsetup{labelsep=enspace}%
 \captionsetup[figure]{font={small,rm}}%
-\captionsetup[bi-first]{bi-first}%
-\captionsetup[bi-second]{bi-second}%
 \DeclareCaptionOption{bi-first}[]{}% 1st language
 \DeclareCaptionOption{bi-second}[]{% 2nd language
     \def\tablename{Table}%
     \def\figurename{Figure}%
 }
+\captionsetup[bi-first]{bi-first}%
+\captionsetup[bi-second]{bi-second}%
 \renewcommand{\thetable}{\arabic{chapter}\raisebox{1pt}{--}\arabic{table}}   
 \renewcommand{\thefigure}{\arabic{chapter}\raisebox{1pt}{--}\arabic{figure}}
 

@@ -16,7 +16,7 @@ jobs:
             - chinese*
       before_install:
         - sudo apt-get update
-        - sudo apt install perl wget -y
+        - sudo apt install perl wget libfontconfig1 -y
       install:
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso
         - wget http://mirrors.ctan.org/systems/texlive/Images/texlive2019-20190410.iso.md5
@@ -28,7 +28,7 @@ jobs:
         - sudo umount -l /home/download/
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH &&
-          sudo sed -i '86,103d' artratex.sh &&
+          sudo sed -i '89,106d' artratex.sh &&
           sudo chmod +x artratex.sh &&
           sudo ./artratex.sh xa &&
       cache:
