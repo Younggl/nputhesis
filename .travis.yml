@@ -27,10 +27,10 @@ jobs:
         - cat /home/test.txt | sudo perl /home/download/install-tl -no-gui
         - sudo umount -l /home/download/
       script:
-        - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
-        - sudo sed -i '86,103d' artratex.sh
-        - sudo chmod +x artratex.sh
-        - sudo ./artratex.sh xa
+        - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH &&
+          sudo sed -i '86,103d' artratex.sh &&
+          sudo chmod +x artratex.sh &&
+          sudo ./artratex.sh xa &&
       cache:
         directories:
           - /tmp/texlive
@@ -56,9 +56,9 @@ jobs:
         - cat ~/test.txt | sudo perl /Volumes/*2019*/install-tl -no-gui
         - sudo hdiutil detach /Volumes/*2019*
       script:
-        - export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH
-        - sudo chmod +x artratex.sh
-        - sudo ./artratex.sh xa
+        - export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH &&
+          sudo chmod +x artratex.sh &&
+          sudo ./artratex.sh xa
       cache:
         directories:
           - /tmp/texlive
