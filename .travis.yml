@@ -34,7 +34,8 @@ jobs:
         - cat /home/test.txt | sudo perl /home/download/install-tl -no-gui
         - sudo umount -l /home/download/
       script:
-        - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH &&
+        - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
+        - xelatex -v
         - sudo sed -i '89,106d' artratex.sh 
         - sudo chmod +x artratex.sh 
         - sudo ./artratex.sh xa 
@@ -45,12 +46,6 @@ jobs:
     - name: TeX Live (macOS)
       os: osx
       sudo: required
-      addons:
-        brew:
-          packages:
-            # Chinese
-            - language-pack-zh*
-            - chinese*
       before_install:
         - brew  update
         - brew install wget perl
@@ -62,6 +57,12 @@ jobs:
         - echo 'I' | sudo tee ~/test.txt 
         - cat ~/test.txt | sudo perl /Volumes/*2019*/install-tl -no-gui
         - sudo hdiutil detach /Volumes/*2019*
+        - cd /Library/Fonts/
+        - sudo wget http://intellisenselab.ml/Kaiti.ttc
+        - sudo wget http://intellisenselab.ml/STFANGSO.ttf
+        - sudo wget http://intellisenselab.ml/STHeiti%20Light.ttc
+        - sudo wget http://intellisenselab.ml/STHeiti%20Medium.ttc
+        - sudo wget http://intellisenselab.ml/Songti.ttc
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH 
         - sudo chmod +x artratex.sh 
