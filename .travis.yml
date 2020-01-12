@@ -35,10 +35,11 @@ jobs:
         - sudo umount -l /home/download/
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH
-        - xelatex -v
         - sudo sed -i '89,106d' artratex.sh 
         - sudo chmod +x artratex.sh 
-        - sudo ./artratex.sh xa 
+        - mkdir Tmp
+        - xelatex -output-directory=Tmp Thesis.tex
+        - bibtex -output-directory=Tmp Thesis.tex
       cache:
         directories:
           - /tmp/texlive
@@ -63,6 +64,7 @@ jobs:
         - sudo wget http://intellisenselab.ml/STHeiti%20Light.ttc
         - sudo wget http://intellisenselab.ml/STHeiti%20Medium.ttc
         - sudo wget http://intellisenselab.ml/Songti.ttc
+        - cd -
       script:
         - export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH 
         - sudo chmod +x artratex.sh 
