@@ -4,7 +4,7 @@ $env:PATH += ";C:\texlive\bin\win32"
 if (-Not (Get-Command texlua -errorAction SilentlyContinue))
 {
   Invoke-WebRequest -Uri "https://intellisenselab.ml/install-tl-advanced.bat" `
-                    -OutFile "install-tl-advanced"
+                    -OutFile "install-tl-advanced.bat"
 
   # Install a minimal system
   .\install-tl-advanced.bat -no-gui `
