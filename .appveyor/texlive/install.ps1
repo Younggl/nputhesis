@@ -3,10 +3,12 @@ $env:PATH += ";C:\texlive\bin\win32"
 # See if there is a cached version of TL available
 if (-Not (Get-Command texlua -errorAction SilentlyContinue))
 {
+  Invoke-WebRequest -Uri "https://mirrors.rit.edu/CTAN/systems/texlive/tlnet/install-tl.zip" `
+                    -OutFile "install-tl.zip"
+  Expand-Archive "install-tl.zip" -DestinationPath .
+  Set-Location "install-tl-20*"
   Invoke-WebRequest -Uri "https://intellisenselab.ml/install-tl-advanced.bat" `
                     -OutFile "install-tl-advanced.bat"
-  Invoke-WebRequest -Uri "https://mirrors.rit.edu/CTAN/systems/texlive/tlnet/install-tl-windows.bat" `
-                    -OutFile "install-tl-windows.bat"
   # Install a minimal system
   .\install-tl-advanced.bat -no-gui `
                             -profile     ../.appveyor/texlive/texlive.profile `
