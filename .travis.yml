@@ -38,7 +38,7 @@ jobs:
         - mkdir Tmp
         - xelatex -output-directory=Tmp Thesis.tex
         - sed -i -e "s|\@input{|\@input{Tmp/|g"  ./Tmp/Thesis.aux
-        - bibtex ./Tmp Thesis.aux
+        - bibtex ./Tmp/Thesis.aux
         - xelatex -output-directory=Tmp Thesis.tex
         - xelatex -output-directory=Tmp Thesis.tex
       cache:
