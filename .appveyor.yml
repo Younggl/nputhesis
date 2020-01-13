@@ -4,9 +4,9 @@ environment:
 
 install:
   - ps: .appveyor\texlive\install.ps1
-  - Invoke-WebRequest -Uri https://intellisenselab.ml/%E4%B9%89%E5%90%AF%E7%B2%97%E6%A5%B7%E4%BD%93.ttf `
+  - ps: Invoke-WebRequest -Uri https://intellisenselab.ml/%E4%B9%89%E5%90%AF%E7%B2%97%E6%A5%B7%E4%BD%93.ttf `
                       -OutFile "iekie cukai.ttf"
-  -  mv '.\iekie cukai.ttf' C:\Windows\Fonts\
+  - ps:  mv '.\iekie cukai.ttf' C:\Windows\Fonts\
 
 build: off
 
